@@ -1,7 +1,8 @@
 // my api ef1469caf7056b082001780980ad0619
  
-var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+var weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 var apiKey = 'ef1469caf7056b082001780980ad0619';
+var h1 = $('<h1>');
 
 
 $(document).ready(function () {
@@ -29,6 +30,7 @@ $(document).ready(function () {
         var updatedUrl = weatherUrl + value + '&appid=' + apiKey ;
         console.log(updatedUrl);
 
+        // fetches the updated url and returns data for user city 
         fetch(updatedUrl)
             .then(function (response) {
                 return response.json();
@@ -42,8 +44,20 @@ $(document).ready(function () {
 
     }
 
+    // This function will put the data retreived with the fetch funtion on the page
     function paste(json) {
+
         console.log(json);
+        var date = (json.list[0].dt_txt);
+        console.log(date);
+        var name = (json.city.name);
+        var nameDate = name + ' ' + date;
+        console.log(nameDate);
+        h1.text(nameDate);
+
+        var row = $('<section>').addClass('row gy-1');
+        $('#current').prepend(row);
+        row.append(h1);
         
     }
 
