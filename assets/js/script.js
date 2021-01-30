@@ -90,7 +90,7 @@ $(document).ready(function () {
         // creates weather icon to be appended
         var icon = 'http://openweathermap.org/img/wn/' + currentJson.weather[0].icon+ '@2x.png';
         img.attr('src', icon);
-        img.addClass('icon');
+        img.addClass('currentIcon')
         h1.text(nameDate);
         
         // creates and appends city name, date and weather icon section
@@ -129,9 +129,20 @@ $(document).ready(function () {
 
         //variables to capture current UV index
         var uv = (futureJson.current.uvi);
+        console.log(uv);
 
         //appends currnet uv index
         $('#uv').html(uv);
+
+        if ($(this).uv < 2) {
+            $('#uv').addClass('fav');
+        }
+        else if ($(this).uv > 2 && uv < 5) {
+            $('#uv').addClass('moderate');
+        }
+        else {
+            $('#uv').addClass('severe');
+        }
 
     }
 

@@ -3,6 +3,18 @@
     color: white;
   }
 
-.icon {
+.currentIcon {
     width: 80px;
+}
+
+.fav {
+    background-color: green;
+}
+
+.moderate {
+    background-color: yellow;
+}
+
+.severe {
+    background-color: red;
 }
