@@ -6,7 +6,7 @@ let today = DateTime.local();
 let regDate = today.toLocaleString(DateTime.DATE_SHORT);
 console.log(regDate);
  
-var futureWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+var oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?';
 var currentWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var apiKey = 'ef1469caf7056b082001780980ad0619';
 var h1 = $('<h1>');
@@ -39,27 +39,28 @@ $(document).ready(function () {
 
     });
 
-    // fetch call for 5 day forecast
-    // function futureSearch(value) {
-    //     // this adds user city input on to the api call
-    //     var updatedFutureUrl = futureWeatherUrl + value + '&appid=' + apiKey ;
-    //     console.log(updatedFutureUrl);
+    // fetch call one call API
+    function futureSearch(lat, lon) {
+        // this adds user city input on to the api call
+        var updatedOneCallUrl = oneCallUrl + 'lat=' + lat + '&lon=' + lon + '&units=imperial' + '&appid=' + apiKey ;
+        console.log(updatedOneCallUrl);
 
-    //     // fetches the updated url and returns future weather data for user city 
-    //     fetch(updatedFutureUrl)
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function(futureJson) {
-    //             futurePaste(futureJson);
-    //         })
+        // fetches the updated url and returns future weather data for user city 
+        fetch(updatedOneCallUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function(futureJson) {
+                uv(futureJson);
+                console.log(futureJson);
+            })
 
-    // }
+    }
 
     // fetch call for current forecast
     function currentSearch(value) {
         // adds user city input to api call
-        var updatedCurrentUrl = currentWeatherUrl + value + '&appid=' + apiKey;
+        var updatedCurrentUrl = currentWeatherUrl + value + '&units=imperial' + '&appid=' + apiKey;
         console.log(updatedCurrentUrl);
 
         // fetches the updated url and returns current weather data for user city
@@ -75,8 +76,15 @@ $(document).ready(function () {
     // This function will put the data retreived with the fetch funtion on the page
     function currentPaste(currentJson) {
 
+        // variable that holds longitude and latitude for one call api 
+        var lat = (currentJson.coord.lat);
+        var lon = (currentJson.coord.lon);
+        console.log(lat);
+        console.log(lon);
+        futureSearch(lat, lon);
+
         console.log(currentJson);
-        
+
         var name = (currentJson.name);
         var nameDate = name + ' ' + '(' + regDate + ')';
         // creates weather icon to be appended
@@ -85,17 +93,45 @@ $(document).ready(function () {
         img.addClass('icon');
         h1.text(nameDate);
         
-        // creates and appends city name date and weather icon section
+        // creates and appends city name, date and weather icon section
         var cityName = $('<section>').addClass('flex-row gy-1 d-flex justify-content-start align-items-center');
         $('#current').prepend(cityName);
         cityName.append(h1);
         cityName.append(img);
 
         //variable to capture the current temperature
-        // var currentTemp = (json.)
+        var temp = (currentJson.main.temp);
+        // rounds temp to nearest tenth
+        var roundTemp = temp.toFixed(1);
 
-        $('#temp').html('hi');
+        // appends current tempurature 
+        $('#temp').html(roundTemp + ' °F');
 
+        //variable to caputre current humidity
+        var hum = (currentJson.main.humidity)
+
+        //appends current humidity
+        $('#hum').html(hum + '%');
+
+        //variable to catupre current wind speed
+        var wind = (currentJson.wind.speed)
+        //rounds wind to nearest tenth
+        var roundWind = wind.toFixed(1);
+
+        //appends current wind speeds
+        $('#wind').html(roundWind + ' MPH');
+
+    }
+
+
+    // function to append current uv index to current weather section
+    function uv(futureJson) {
+
+        //variables to capture current UV index
+        var uv = (futureJson.current.uvi);
+
+        //appends currnet uv index
+        $('#uv').html(uv);
 
     }
 
