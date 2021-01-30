@@ -134,14 +134,15 @@ $(document).ready(function () {
         //appends currnet uv index
         $('#uv').html(uv);
 
-        if ($(this).uv < 2) {
-            $('#uv').addClass('fav');
+        if (uv < 2) {
+            $('#uv').removeClass('moderate severe').addClass('fav');
         }
-        else if ($(this).uv > 2 && uv < 5) {
-            $('#uv').addClass('moderate');
+        else if (uv > 2 && uv < 5) {
+            $('#uv').removeClass('')
+            $('#uv').removeClass('fav severe').addClass('moderate');
         }
         else {
-            $('#uv').addClass('severe');
+            $('#uv').removeClass('fav moderate').addClass('severe');
         }
 
     }
