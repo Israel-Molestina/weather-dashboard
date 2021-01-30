@@ -87,24 +87,24 @@
                     <article class="col-12 border" id="current">
                         <!--This is where I will put current city info-->
                         <!--These will all be dynamically created with jQuery-->
-                        <section class="row gy-1">
+                        <!-- <section class="row gy-1">
                             <h1>City name</h1>
+                        </section> -->
+
+                        <section class="row gy-3">
+                            <h3>Temperatue: <span id="temp"></span></h3>
                         </section>
 
-                        <section class="row gy-1">
-                            <h1>temp</h1>
+                        <section class="row gy-3" id="hum">
+                        <h3>Humidity:</h3>
                         </section>
 
-                        <section class="row gy-1">
-                        <h1>humidiy</h1>
-                        </section>
-
-                        <section class="row gy-1">
-                            <h1>wind speed</h1>
+                        <section class="row gy-3" id="wind">
+                            <h3>Wind Speed:</h3>
                         </section>
                         
-                        <section class="row gy-1">
-                            <h1>uv index</h1>
+                        <section class="row gy-3" id="uv">
+                            <h3>UV Index:</h3>
                         </section>
                         
                     </article>
@@ -172,6 +172,9 @@
 
     <!--jQuery CDN-->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <!--links luxon library-->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>
 
     <!--links my script file-->
     <script src="./assets/js/script.js"></script>
