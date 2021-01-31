@@ -12,8 +12,16 @@ var apiKey = 'ef1469caf7056b082001780980ad0619';
 var h1 = $('<h1>');
 var img = $('<img>');
 var citys = [];
-
-var p = $('<p>');
+var img1 = $('<img>');
+var img2 = $('<img>');
+var img3 = $('<img>');
+var img4 = $('<img>');
+var img5 = $('<img>');
+var h0 = $('<h5>');
+var h2 = $('<h5>');
+var h3 = $('<h5>');
+var h4 = $('<h5>');
+var h5 = $('<h5>');
 
 
 $(document).ready(function () {
@@ -146,6 +154,32 @@ $(document).ready(function () {
         else {
             $('#uv').removeClass('fav moderate').addClass('severe');
         }
+        
+        // creates and appends weather icons for 5 day forecast
+        var icon1 = 'http://openweathermap.org/img/wn/' + futureJson.daily[1].weather[0].icon+ '@2x.png';
+        img1.attr('src', icon1);
+        img1.addClass('currentIcon')
+        $('.icon1').prepend(img1);
+        
+        var icon2 = 'http://openweathermap.org/img/wn/' + futureJson.daily[2].weather[0].icon+ '@2x.png';
+        img2.attr('src', icon2);
+        img2.addClass('currentIcon')
+        $('.icon2').prepend(img2);
+        
+        var icon3 = 'http://openweathermap.org/img/wn/' + futureJson.daily[3].weather[0].icon+ '@2x.png';
+        img3.attr('src', icon3);
+        img3.addClass('currentIcon')
+        $('.icon3').prepend(img3);
+
+        var icon4 = 'http://openweathermap.org/img/wn/' + futureJson.daily[4].weather[0].icon+ '@2x.png';
+        img4.attr('src', icon4);
+        img4.addClass('currentIcon')
+        $('.icon4').prepend(img4);
+
+        var icon5 = 'http://openweathermap.org/img/wn/' + futureJson.daily[5].weather[0].icon+ '@2x.png';
+        img5.attr('src', icon5);
+        img5.addClass('currentIcon')
+        $('.icon5').prepend(img5);
 
         // variables for 5 day forecast dates
         var dt1 = (futureJson.daily[1].dt);
@@ -160,70 +194,57 @@ $(document).ready(function () {
         var day3 = new Date(dt3 * 1000).toLocaleDateString('en-US');
         var day4 = new Date(dt4 * 1000).toLocaleDateString('en-US');
         var day5 = new Date(dt5 * 1000).toLocaleDateString('en-US');
-    
-        for1(day1);
-        for2(day2);
-        for3(day3);
-        for4(day4);
-        for5(day5);
 
-        // functions for appending future dates on 5 day forecast boxes
-        function for1(day1) {
-            var h5 = $('<h5>');
-            h5.text(day1);
-            $('#day1').prepend(h5);
-        }
-
-        function for2(day2) {
-            var h5 = $('<h5>');
-            h5.text(day2);
-            $('#day2').prepend(h5);
-        }
-
-        function for3(day3) {
-            var h5 = $('<h5>');
-            h5.text(day3);
-            $('#day3').prepend(h5);
-        }
-
-        function for4(day4) {
-            var h5 = $('<h5>');
-            h5.text(day4);
-            $('#day4').prepend(h5);
-        }
-
-        function for5(day5) {
-            var h5 = $('<h5>');
-            h5.text(day5);
-            $('#day5').prepend(h5);
-        }
-
-        // creates weather icon to be appended
-        var img1 = $('<img>');
-        var icon1 = 'http://openweathermap.org/img/wn/' + futureJson.daily[1].weather[0].icon+ '@2x.png';
-        img1.attr('src', icon1);
-        $('.icon1').append(img1);
-
-        var img2 = $('<img>');
-        var icon2 = 'http://openweathermap.org/img/wn/' + futureJson.daily[2].weather[0].icon+ '@2x.png';
-        img2.attr('src', icon2);
-        $('.icon2').append(img2);
+        // appending future dates on 5 day forecast boxes
         
-        var img3 = $('<img>');
-        var icon3 = 'http://openweathermap.org/img/wn/' + futureJson.daily[3].weather[0].icon+ '@2x.png';
-        img3.attr('src', icon3);
-        $('.icon3').append(img3);
+        h0.text(day1);
+        $('#day1').prepend(h0);
 
-        var img4 = $('<img>');
-        var icon4 = 'http://openweathermap.org/img/wn/' + futureJson.daily[4].weather[0].icon+ '@2x.png';
-        img4.attr('src', icon4);
-        $('.icon4').append(img4);
+        h2.text(day2);
+        $('#day2').prepend(h2);
 
-        var img5 = $('<img>');
-        var icon5 = 'http://openweathermap.org/img/wn/' + futureJson.daily[5].weather[0].icon+ '@2x.png';
-        img5.attr('src', icon5);
-        $('.icon5').append(img5);
+        h3.text(day3);
+        $('#day3').prepend(h3);
 
+        h4.text(day4);
+        $('#day4').prepend(h4);
+
+        h5.text(day5);
+        $('#day5').prepend(h5);
+
+        //variable to capture the 5 day temperatures
+        var temp1 = (futureJson.daily[1].temp.day);
+        var temp2 = (futureJson.daily[2].temp.day);
+        var temp3 = (futureJson.daily[3].temp.day);
+        var temp4 = (futureJson.daily[4].temp.day);
+        var temp5 = (futureJson.daily[5].temp.day);
+        // rounds temp to nearest tenth
+        var roundTemp1 = temp1.toFixed(1);
+        var roundTemp2 = temp2.toFixed(1);
+        var roundTemp3 = temp3.toFixed(1);
+        var roundTemp4 = temp4.toFixed(1);
+        var roundTemp5 = temp5.toFixed(1);
+
+        // appends future tempuratures
+        $('.temp1').html(roundTemp1 + ' °F');
+        $('.temp2').html(roundTemp2 + ' °F');
+        $('.temp3').html(roundTemp3 + ' °F');
+        $('.temp4').html(roundTemp4 + ' °F');
+        $('.temp5').html(roundTemp5 + ' °F');
+
+        //variable to caputre current humidity
+        var hum1 = (futureJson.daily[1].humidity)
+        var hum2 = (futureJson.daily[2].humidity)
+        var hum3 = (futureJson.daily[3].humidity)
+        var hum4 = (futureJson.daily[4].humidity)
+        var hum5 = (futureJson.daily[5].humidity)
+
+        //appends current humidity
+        $('.hum1').html(hum1 + '%');
+        $('.hum2').html(hum2 + '%');
+        $('.hum3').html(hum3 + '%');
+        $('.hum4').html(hum4 + '%');
+        $('.hum5').html(hum5 + '%');
 
     }
 
