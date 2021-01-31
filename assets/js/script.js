@@ -5,7 +5,7 @@ let DateTime = luxon.DateTime;
 let today = DateTime.local();
 let regDate = today.toLocaleString(DateTime.DATE_SHORT);
 console.log(regDate);
- 
+
 var oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?';
 var currentWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var apiKey = 'ef1469caf7056b082001780980ad0619';
@@ -13,11 +13,12 @@ var h1 = $('<h1>');
 var img = $('<img>');
 var citys = [];
 
+var p = $('<p>');
+
 
 $(document).ready(function () {
 
     // function takes what city user inputs and saves it in local storage for later use
-    // need to figure out how to keep saving them and not just once
     $(document).on('click', '.btn', function () {
       console.log($(this));
 
@@ -42,7 +43,7 @@ $(document).ready(function () {
     // fetch call one call API
     function futureSearch(lat, lon) {
         // this adds user city input on to the api call
-        var updatedOneCallUrl = oneCallUrl + 'lat=' + lat + '&lon=' + lon + '&units=imperial' + '&appid=' + apiKey ;
+        var updatedOneCallUrl = oneCallUrl + 'lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial' + '&appid=' + apiKey ;
         console.log(updatedOneCallUrl);
 
         // fetches the updated url and returns future weather data for user city 
@@ -51,7 +52,7 @@ $(document).ready(function () {
                 return response.json();
             })
             .then(function(futureJson) {
-                uv(futureJson);
+                forecast(futureJson);
                 console.log(futureJson);
             })
 
@@ -87,6 +88,7 @@ $(document).ready(function () {
 
         var name = (currentJson.name);
         var nameDate = name + ' ' + '(' + regDate + ')';
+        
         // creates weather icon to be appended
         var icon = 'http://openweathermap.org/img/wn/' + currentJson.weather[0].icon+ '@2x.png';
         img.attr('src', icon);
@@ -125,7 +127,7 @@ $(document).ready(function () {
 
 
     // function to append current uv index to current weather section
-    function uv(futureJson) {
+    function forecast(futureJson) {
 
         //variables to capture current UV index
         var uv = (futureJson.current.uvi);
@@ -144,6 +146,84 @@ $(document).ready(function () {
         else {
             $('#uv').removeClass('fav moderate').addClass('severe');
         }
+
+        // variables for 5 day forecast dates
+        var dt1 = (futureJson.daily[1].dt);
+        var dt2 = (futureJson.daily[2].dt);
+        var dt3 = (futureJson.daily[3].dt);
+        var dt4 = (futureJson.daily[4].dt);
+        var dt5 = (futureJson.daily[5].dt);
+
+        // converts dt into month/day/year format
+        var day1 = new Date(dt1 * 1000).toLocaleDateString('en-US');
+        var day2 = new Date(dt2 * 1000).toLocaleDateString('en-US');
+        var day3 = new Date(dt3 * 1000).toLocaleDateString('en-US');
+        var day4 = new Date(dt4 * 1000).toLocaleDateString('en-US');
+        var day5 = new Date(dt5 * 1000).toLocaleDateString('en-US');
+    
+        for1(day1);
+        for2(day2);
+        for3(day3);
+        for4(day4);
+        for5(day5);
+
+        // functions for appending future dates on 5 day forecast boxes
+        function for1(day1) {
+            var h5 = $('<h5>');
+            h5.text(day1);
+            $('#day1').prepend(h5);
+        }
+
+        function for2(day2) {
+            var h5 = $('<h5>');
+            h5.text(day2);
+            $('#day2').prepend(h5);
+        }
+
+        function for3(day3) {
+            var h5 = $('<h5>');
+            h5.text(day3);
+            $('#day3').prepend(h5);
+        }
+
+        function for4(day4) {
+            var h5 = $('<h5>');
+            h5.text(day4);
+            $('#day4').prepend(h5);
+        }
+
+        function for5(day5) {
+            var h5 = $('<h5>');
+            h5.text(day5);
+            $('#day5').prepend(h5);
+        }
+
+        // creates weather icon to be appended
+        var img1 = $('<img>');
+        var icon1 = 'http://openweathermap.org/img/wn/' + futureJson.daily[1].weather[0].icon+ '@2x.png';
+        img1.attr('src', icon1);
+        $('.icon1').append(img1);
+
+        var img2 = $('<img>');
+        var icon2 = 'http://openweathermap.org/img/wn/' + futureJson.daily[2].weather[0].icon+ '@2x.png';
+        img2.attr('src', icon2);
+        $('.icon2').append(img2);
+        
+        var img3 = $('<img>');
+        var icon3 = 'http://openweathermap.org/img/wn/' + futureJson.daily[3].weather[0].icon+ '@2x.png';
+        img3.attr('src', icon3);
+        $('.icon3').append(img3);
+
+        var img4 = $('<img>');
+        var icon4 = 'http://openweathermap.org/img/wn/' + futureJson.daily[4].weather[0].icon+ '@2x.png';
+        img4.attr('src', icon4);
+        $('.icon4').append(img4);
+
+        var img5 = $('<img>');
+        var icon5 = 'http://openweathermap.org/img/wn/' + futureJson.daily[5].weather[0].icon+ '@2x.png';
+        img5.attr('src', icon5);
+        $('.icon5').append(img5);
+
 
     }
 
