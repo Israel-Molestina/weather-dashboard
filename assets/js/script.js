@@ -21,17 +21,25 @@ var h2 = $('<h5>');
 var h3 = $('<h5>');
 var h4 = $('<h5>');
 var h5 = $('<h5>');
+// var savedCities = localStorage.getItem(cities);
 var cities = [];
-var hSave = $('<h1>');
+// cities.concat(savedCities);
+
+
 // var citys = data ? JSON.parse(data) : [];
 // var data = localStorage.getItem(cities);
 
 
 $(document).ready(function () {
+     
 
     // function takes what city user inputs and saves it in local storage for later use
     $(document).on('click', '.btn', function () {
       console.log($(this));
+
+    //   var savedCities = localStorage.getItem(cities);
+    //   var savedCities2 = (cities || '[]');
+    //   cities.concat(value);  
 
       // variables for key and value pair
       var key = 'Cities';
@@ -40,25 +48,48 @@ $(document).ready(function () {
       console.log(cities);
 
       // saves city to local storage
-      localStorage.setItem(key, cities);
+      localStorage.setItem(key, JSON.stringify(cities));
 
     //   futureSearch(value);
 
       currentSearch(value);
 
-      savedCities(value);
+      savedCities();
 
     });
 
+    $(document).on('click', '.goBack', function () {
+
+        console.log($(this));
+        var value = $(this)[0].innerText;
+        currentSearch(value);
+
+    })
+
     // this function will add the saved cities to a column on the left so user can go back to them
-    function savedCities(value) {
+    function savedCities() {
 
-        hSave.text(value);
+        var hSave = $('<h1>');
+        var savedC = $('<article>').addClass('row  g-2 mt-2 border goBack');
 
-        var savedC = $('<article>').addClass('row  g-2 mt-2 border');
-        $('#saved').append(savedC)
-        savedC.prepend(hSave);
+        cities.forEach(function(value) {
+            hSave.text(value);
+            console.log(value);
 
+            $('#saved').append(savedC)
+            savedC.prepend(hSave);
+        });
+
+        // for (var i = 0; i < newVal.length; i++) {
+
+        //     hSave.text(newVal[i]);
+        //     console.log(hSave);
+
+        //     var savedC = $('<article>').addClass('row  g-2 mt-2 border');
+        //     $('#saved').append(savedC)
+        //     savedC.prepend(hSave);
+
+        // }
 
     }
 
