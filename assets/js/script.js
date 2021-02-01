@@ -11,7 +11,6 @@ var currentWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var apiKey = 'ef1469caf7056b082001780980ad0619';
 var h1 = $('<h1>');
 var img = $('<img>');
-var citys = [];
 var img1 = $('<img>');
 var img2 = $('<img>');
 var img3 = $('<img>');
@@ -22,6 +21,10 @@ var h2 = $('<h5>');
 var h3 = $('<h5>');
 var h4 = $('<h5>');
 var h5 = $('<h5>');
+var cities = [];
+var hSave = $('<h1>');
+// var citys = data ? JSON.parse(data) : [];
+// var data = localStorage.getItem(cities);
 
 
 $(document).ready(function () {
@@ -31,28 +34,38 @@ $(document).ready(function () {
       console.log($(this));
 
       // variables for key and value pair
-      var key = 'City';
-      console.log(key);
+      var key = 'Cities';
       var value = $(this)[0].parentNode.children[1].value;
-      console.log(value);
-      citys.push(value);
+      cities.push(value);
+      console.log(cities);
 
       // saves city to local storage
-      localStorage.setItem(key, citys);
-
-      console.log(citys);
+      localStorage.setItem(key, cities);
 
     //   futureSearch(value);
 
       currentSearch(value);
 
+      savedCities(value);
+
     });
+
+    // this function will add the saved cities to a column on the left so user can go back to them
+    function savedCities(value) {
+
+        hSave.text(value);
+
+        var savedC = $('<article>').addClass('row  g-2 mt-2 border');
+        $('#saved').append(savedC)
+        savedC.prepend(hSave);
+
+
+    }
 
     // fetch call one call API
     function futureSearch(lat, lon) {
         // this adds user city input on to the api call
         var updatedOneCallUrl = oneCallUrl + 'lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial' + '&appid=' + apiKey ;
-        console.log(updatedOneCallUrl);
 
         // fetches the updated url and returns future weather data for user city 
         fetch(updatedOneCallUrl)
@@ -70,7 +83,6 @@ $(document).ready(function () {
     function currentSearch(value) {
         // adds user city input to api call
         var updatedCurrentUrl = currentWeatherUrl + value + '&units=imperial' + '&appid=' + apiKey;
-        console.log(updatedCurrentUrl);
 
         // fetches the updated url and returns current weather data for user city
         fetch(updatedCurrentUrl)
@@ -88,8 +100,6 @@ $(document).ready(function () {
         // variable that holds longitude and latitude for one call api 
         var lat = (currentJson.coord.lat);
         var lon = (currentJson.coord.lon);
-        console.log(lat);
-        console.log(lon);
         futureSearch(lat, lon);
 
         console.log(currentJson);
@@ -139,15 +149,13 @@ $(document).ready(function () {
 
         //variables to capture current UV index
         var uv = (futureJson.current.uvi);
-        console.log(uv);
-
         //appends currnet uv index
         $('#uv').html(uv);
 
         if (uv < 2) {
             $('#uv').removeClass('moderate severe').addClass('fav');
         }
-        else if (uv > 2 && uv < 5) {
+        else if (uv >= 2 && uv <= 5) {
             $('#uv').removeClass('')
             $('#uv').removeClass('fav severe').addClass('moderate');
         }
@@ -247,6 +255,8 @@ $(document).ready(function () {
         $('.hum5').html(hum5 + '%');
 
     }
+
+    
 
 });
 
