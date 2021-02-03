@@ -22,78 +22,46 @@ var h2 = $('<h5>');
 var h3 = $('<h5>');
 var h4 = $('<h5>');
 var h5 = $('<h5>');
-// var savedCities = localStorage.getItem(cities);
-var cities = [];
-// cities.concat(savedCities);
-
-
-// var citys = data ? JSON.parse(data) : [];
-// var data = localStorage.getItem(cities);
-
-
-$(document).ready(function () {
-     
+var get = localStorage.getItem('searchedCities');
+if (get) {
+    var cities = get.split(',');
+    savedCities(cities);
+    console.log(cities);
+}
+else {
+    var cities = [];
+}
+console.log(cities);
+// if (cities.length !== 0) {
+//     savedCities(cities);
+// }
 
     // function takes what city user inputs and saves it in local storage for later use
     $(document).on('click', '.btn', function () {
       console.log($(this));
 
-    //   var savedCities = localStorage.getItem(cities);
-    //   var savedCities2 = (cities || '[]');
-    //   cities.concat(value);  
-
       // variables for key and value pair
-      var key = 'Cities';
-      var value = $(this)[0].parentNode.children[1].value;
+      var key = 'searchedCities';
+      var value = $(this)[0].parentNode.children[1].value.toLowerCase();
       console.log(value)
 
-      
-      //   nonRepeat(cities);
-      //   cities.push(value);
       console.log(cities);
       console.log(cities.length);
-      cities.push(value);
-      
-      // saves city to local storage
-      localStorage.setItem(key, JSON.stringify(cities));
-      
-    //   for (var i = 0; i < cities.length; i++) {
-    //       if (value !== cities[i]) {
-    //         cities.push(value);
-    //       }
-    //   }
-    //   futureSearch(value);
+
+    if (cities.indexOf(value) == -1) {
+        cities.push(value);
+        localStorage.setItem(key, cities);
+        savedCities(cities);
+    }
+
+    console.log(cities);
 
       
 
       currentSearch(value);
 
-      savedCities();
-
     });
 
-    // function nonRepeat (cities) {
-    //     var cityCount = {};
-    //     console.log(cities);
-    //     for (var i = 0; i < cities.length; i ++) {
-    //         console.log(cities.length);
-
-    //         var char = cities[i];
-    //         if (cityCount[char]) {
-    //             cityCount[char]++
-    //         }
-    //         else {
-    //             cityCount[char] = 1;
-    //         }
-    //     }
-
-    //     for (var j in cityCount) {
-    //         if (cityCount[j] === 1) {
-    //           cities.push(cities);
-    //           console.log(cities);
-    //         }
-    //     }
-    // };
 
     $(document).on('click', '.goBack', function () {
 
@@ -104,23 +72,15 @@ $(document).ready(function () {
     })
 
     // this function will add the saved cities to a column on the left so user can go back to them
-    function savedCities() {
+    function savedCities(cities) {
 
         var hSave = $('<h1>');
-        var savedC = $('<article>').addClass('row  g-2 mt-2 border goBack');
+        var savedC = $('<article>').addClass('row  g-2 mt-2 border goBack');  
 
-        // cities.forEach(function(value) {
-        //     hSave.text(value);
-        //     console.log(value);
+        cities.forEach(function(city) {
 
-        //     $('#saved').append(savedC)
-        //     savedC.prepend(hSave);
-        // });
-
-        cities.forEach(function(cities) {
-
-            hSave.text(cities);
-            console.log(cities);
+            hSave.text(city);
+            console.log(city);
 
             $('#saved').append(savedC)
             savedC.prepend(hSave);
@@ -322,10 +282,6 @@ $(document).ready(function () {
         $('.hum5').html(hum5 + '%');
 
     }
-
-    
-
-});
 
 // use user input to add to query when fetching data from weather api
 // user user input to create and append city name to first row/column
