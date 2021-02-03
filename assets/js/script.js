@@ -32,6 +32,8 @@ if (get) {
 } else {
   var cities = [];
 };
+var myStatus = [];
+
 
 // function takes what city user inputs and saves it in local storage for later use
 $(document).on("click", ".btn", function () {
@@ -86,15 +88,15 @@ function futureSearch(lat, lon) {
   fetch(updatedOneCallUrl)
     .then(function (response) {
         if (response.status !== 200) {
-            alert('please enter a valid city name');
+            alert('Please enter a valid city');
         }
         else {
-        return response.json();
+            return response.json();
         }
     })
     .then(function (futureJson) {
-      forecast(futureJson);
-      console.log(futureJson);
+            forecast(futureJson);
+            console.log(futureJson);
     });
 };
 
@@ -107,15 +109,18 @@ function currentSearch(value) {
   // fetches the updated url and returns current weather data for user city
   fetch(updatedCurrentUrl)
     .then(function (response) {
+        myStatus.push(response.status);
+        console.log(myStatus)
         if (response.status !== 200) {
-        alert('please enter a valid city name');
+            alert('Please enter a valid city');
         }
         else {
-        return response.json();
+            return response.json();
         }
     })
     .then(function (currentJson) {
-      currentPaste(currentJson);
+            console.log(myStatus.length);
+            currentPaste(currentJson);
     });
 }
 
