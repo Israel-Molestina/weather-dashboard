@@ -1,5 +1,4 @@
 // my api ef1469caf7056b082001780980ad0619
-// how to get cities to only save once
 
 // variables for luxon use
 let DateTime = luxon.DateTime;
@@ -244,7 +243,6 @@ function forecast(futureJson) {
   var day5 = new Date(dt5 * 1000).toLocaleDateString("en-US");
 
   // appending future dates on 5 day forecast boxes
-
   h0.text(day1);
   $("#day1").prepend(h0);
 
