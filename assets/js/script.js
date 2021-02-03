@@ -1,4 +1,5 @@
 // my api ef1469caf7056b082001780980ad0619
+// how to get cities to only save once
 
 // variables for luxon use
 let DateTime = luxon.DateTime;
@@ -44,19 +45,55 @@ $(document).ready(function () {
       // variables for key and value pair
       var key = 'Cities';
       var value = $(this)[0].parentNode.children[1].value;
-      cities.push(value);
-      console.log(cities);
+      console.log(value)
 
+      
+      //   nonRepeat(cities);
+      //   cities.push(value);
+      console.log(cities);
+      console.log(cities.length);
+      cities.push(value);
+      
       // saves city to local storage
       localStorage.setItem(key, JSON.stringify(cities));
-
+      
+    //   for (var i = 0; i < cities.length; i++) {
+    //       if (value !== cities[i]) {
+    //         cities.push(value);
+    //       }
+    //   }
     //   futureSearch(value);
+
+      
 
       currentSearch(value);
 
       savedCities();
 
     });
+
+    // function nonRepeat (cities) {
+    //     var cityCount = {};
+    //     console.log(cities);
+    //     for (var i = 0; i < cities.length; i ++) {
+    //         console.log(cities.length);
+
+    //         var char = cities[i];
+    //         if (cityCount[char]) {
+    //             cityCount[char]++
+    //         }
+    //         else {
+    //             cityCount[char] = 1;
+    //         }
+    //     }
+
+    //     for (var j in cityCount) {
+    //         if (cityCount[j] === 1) {
+    //           cities.push(cities);
+    //           console.log(cities);
+    //         }
+    //     }
+    // };
 
     $(document).on('click', '.goBack', function () {
 
@@ -72,24 +109,23 @@ $(document).ready(function () {
         var hSave = $('<h1>');
         var savedC = $('<article>').addClass('row  g-2 mt-2 border goBack');
 
-        cities.forEach(function(value) {
-            hSave.text(value);
-            console.log(value);
+        // cities.forEach(function(value) {
+        //     hSave.text(value);
+        //     console.log(value);
+
+        //     $('#saved').append(savedC)
+        //     savedC.prepend(hSave);
+        // });
+
+        cities.forEach(function(cities) {
+
+            hSave.text(cities);
+            console.log(cities);
 
             $('#saved').append(savedC)
             savedC.prepend(hSave);
-        });
 
-        // for (var i = 0; i < newVal.length; i++) {
-
-        //     hSave.text(newVal[i]);
-        //     console.log(hSave);
-
-        //     var savedC = $('<article>').addClass('row  g-2 mt-2 border');
-        //     $('#saved').append(savedC)
-        //     savedC.prepend(hSave);
-
-        // }
+        })
 
     }
 
