@@ -58,6 +58,10 @@ $(document).on("click", ".goBack", function () {
   currentSearch(value);
 });
 
+$('.clear').click(function() {
+    localStorage.clear();
+});
+
 // this function will add the saved cities to a column on the left so user can go back to them
 function savedCities(city) {
 
@@ -66,7 +70,7 @@ function savedCities(city) {
 
     hSave.text(city);
 
-    $("#saved").append(savedC);
+    $("#saved").prepend(savedC);
     savedC.prepend(hSave);
 
 }

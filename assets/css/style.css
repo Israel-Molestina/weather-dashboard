@@ -1,7 +1,7 @@
-.btn {
+/* .btn {
     background-color: #06aed5;
     color: white;
-  }
+  } */
 
 .currentIcon {
     width: 80px;
@@ -17,4 +17,8 @@
 
 .severe {
     background-color: red;
+}
+
+.btn-clear {
+    background-color: silver;
 }
