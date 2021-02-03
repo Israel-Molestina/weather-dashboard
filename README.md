@@ -26,4 +26,4 @@ Using the Open Weather API and the Luxon library, I've created an application th
 
 ### Weather Dashboard Webpage
 
-![]
+![weather-dash-screenshot](assets/pics/weather-dashboard.png)
