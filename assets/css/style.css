@@ -22,3 +22,11 @@
 .btn-clear {
     background-color: silver;
 }
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

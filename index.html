@@ -40,7 +40,7 @@
         <section class="row mt-5 pt-4 bg-light">
 
             <section class="col-3 bg-secondary pb-5">
-                <article class="row" id="search">
+                <article class="row">
 
                     <label class="fs-2">Search for a City:</label>
                     
@@ -70,25 +70,31 @@
 
                 <section class="row m-3">
 
-                    <article class="col-12 border" id="current">
+                    <article class="col-12 border">
                         <!--This is where I will put current city info-->
                         <!--These will all be dynamically created with jQuery-->
 
-                        <section class="row gy-3">
-                            <h3>Temperatue: <span id="temp"></span></h3>
-                        </section>
+                        <article class="hide error text-danger">
+                            <h2>City not found, please choose a valid city</h2>
+                        </article>
 
-                        <section class="row gy-3">
-                        <h3>Humidity: <span id="hum"></span></h3>
-                        </section>
+                        <article class="showHide" id="current">
+                            <section class="row gy-3">
+                                <h3>Temperatue: <span id="temp"></span></h3>
+                            </section>
 
-                        <section class="row gy-3">
-                            <h3>Wind Speed: <span id="wind"></span></h3>
-                        </section>
-                        
-                        <section class="row gy-3">
-                            <h3>UV Index: <span id="uv"></span></h3>
-                        </section>
+                            <section class="row gy-3">
+                            <h3>Humidity: <span id="hum"></span></h3>
+                            </section>
+
+                            <section class="row gy-3">
+                                <h3>Wind Speed: <span id="wind"></span></h3>
+                            </section>
+
+                            <section class="row gy-3">
+                                <h3>UV Index: <span id="uv"></span></h3>
+                            </section>
+                        </article>
                         
                     </article>
 
@@ -104,28 +110,28 @@
                             <!--This is where I will put 5-day forcast info-->
                             <!--These will all be dynamically created with jQuery-->
                             <article class="card col-2 mx-2 card-body icon1 bg-info" id="day1">
-                                <p>Temp: <span class="temp1"></span></p>
-                                <p>Humidity: <span class="hum1"></span></p>
+                                <p>Temp: <span class="temp1 showHide"></span></p>
+                                <p>Humidity: <span class="hum1 showHide"></span></p>
                             </article>
 
                             <article class="card col-2 mx-2 card-body icon2 bg-info" id="day2">
-                                <p>Temp: <span class="temp2"></span></p>
-                                <p>Humidity: <span class="hum2"></span></p>
+                                <p>Temp: <span class="temp2 showHide"></span></p>
+                                <p>Humidity: <span class="hum2 showHide"></span></p>
                             </article>
 
                             <article class="card col-2 mx-2 card-body icon3 bg-info" id="day3">
-                                <p>Temp: <span class="temp3"></span></p>
-                                <p>Humidity: <span class="hum3"></span></p>
+                                <p>Temp: <span class="temp3 showHide"></span></p>
+                                <p>Humidity: <span class="hum3 showHide"></span></p>
                             </article>
 
                             <article class="card col-2 mx-2 card-body icon4 bg-info" id="day4">
-                                <p>Temp: <span class="temp4"></span></p>
-                                <p>Humidity: <span class="hum4"></span></p>
+                                <p>Temp: <span class="temp4 showHide"></span></p>
+                                <p>Humidity: <span class="hum4 showHide"></span></p>
                             </article>
 
                             <article class="card col-2 mx-2 card-body icon5 bg-info" id="day5">
-                                <p>Temp: <span class="temp5"></span></p>
-                                <p>Humidity: <span class="hum5"></span></p>
+                                <p>Temp: <span class="temp5 showHide"></span></p>
+                                <p>Humidity: <span class="hum5 showHide"></span></p>
                             </article>
 
                         </article>

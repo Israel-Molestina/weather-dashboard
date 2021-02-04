@@ -43,7 +43,14 @@ $(document).on("click", ".btn", function () {
   var key = "searchedCities";
   var value = $(this)[0].parentNode.children[1].value.toLowerCase();
 
-  if (cities.indexOf(value) == -1) {
+  // checks if user has put something in input field and if it is a valid city
+  if (value === '' || $.isNumeric(value)){
+    $('.error').removeClass('hide')
+    $('.error').addClass('show')
+    $('.showHide').removeClass('show')
+    $('.showHide').addClass("hide")
+  }
+  else if (cities.indexOf(value) == -1) {
     cities.push(value);
     localStorage.setItem(key, cities);
     savedCities(value);
@@ -91,17 +98,19 @@ function futureSearch(lat, lon) {
   // fetches the updated url and returns future weather data for user city
   fetch(updatedOneCallUrl)
     .then(function (response) {
-        if (response.status !== 200) {
-            alert('Please enter a valid city');
+        if (response.ok) {
+          response.json()
+          .then (function (futureJson) {
+              forecast(futureJson);
+              console.log(futureJson);
+          });
+            
         }
         else {
-            return response.json();
+          alert('Please enter a valid city')
+          
         }
     })
-    .then(function (futureJson) {
-            forecast(futureJson);
-            console.log(futureJson);
-    });
 };
 
 // fetch call for current forecast
@@ -115,17 +124,24 @@ function currentSearch(value) {
     .then(function (response) {
         myStatus.push(response.status);
         console.log(myStatus)
-        if (response.status !== 200) {
-            alert('Please enter a valid city');
+        if (response.ok) {
+          $('.error').addClass('hide')
+          $('.error').removeClass('show')
+          $('.showHide').removeClass('hide')
+          $('.showHide').addClass("show")
+          response.json()
+          .then(function (currentJson) {
+              console.log(myStatus.length);
+              currentPaste(currentJson);
+          });
         }
         else {
-            return response.json();
+          $('.error').removeClass('hide')
+          $('.error').addClass('show')
+          $('.showHide').removeClass('show')
+          $('.showHide').addClass("hide")
         }
     })
-    .then(function (currentJson) {
-            console.log(myStatus.length);
-            currentPaste(currentJson);
-    });
 }
 
 // This function will put the data retreived with the fetch funtion on the page
@@ -202,7 +218,7 @@ function forecast(futureJson) {
     futureJson.daily[1].weather[0].icon +
     "@2x.png";
   img1.attr("src", icon1);
-  img1.addClass("currentIcon");
+  img1.addClass("currentIcon showHide");
   $(".icon1").prepend(img1);
 
   var icon2 =
@@ -210,7 +226,7 @@ function forecast(futureJson) {
     futureJson.daily[2].weather[0].icon +
     "@2x.png";
   img2.attr("src", icon2);
-  img2.addClass("currentIcon");
+  img2.addClass("currentIcon showHide");
   $(".icon2").prepend(img2);
 
   var icon3 =
@@ -218,7 +234,7 @@ function forecast(futureJson) {
     futureJson.daily[3].weather[0].icon +
     "@2x.png";
   img3.attr("src", icon3);
-  img3.addClass("currentIcon");
+  img3.addClass("currentIcon showHide");
   $(".icon3").prepend(img3);
 
   var icon4 =
@@ -226,7 +242,7 @@ function forecast(futureJson) {
     futureJson.daily[4].weather[0].icon +
     "@2x.png";
   img4.attr("src", icon4);
-  img4.addClass("currentIcon");
+  img4.addClass("currentIcon showHide");
   $(".icon4").prepend(img4);
 
   var icon5 =
@@ -234,7 +250,7 @@ function forecast(futureJson) {
     futureJson.daily[5].weather[0].icon +
     "@2x.png";
   img5.attr("src", icon5);
-  img5.addClass("currentIcon");
+  img5.addClass("currentIcon showHide");
   $(".icon5").prepend(img5);
 
   // variables for 5 day forecast dates
