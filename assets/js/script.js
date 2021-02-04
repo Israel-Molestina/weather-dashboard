@@ -65,10 +65,6 @@ $(document).on("click", ".goBack", function () {
   currentSearch(value);
 });
 
-// $('.clear').click(function() {
-//     localStorage.clear();
-// });
-
 // this function will add the saved cities to a column on the left so user can go back to them
 function savedCities(city) {
 
@@ -144,7 +140,7 @@ function currentSearch(value) {
     })
 }
 
-// This function will put the data retreived with the fetch funtion on the page
+// This function will put the data retrieved with the fetch function on the page
 function currentPaste(currentJson) {
   // variable that holds longitude and latitude for one call api
   var lat = currentJson.coord.lat;
@@ -181,13 +177,13 @@ function currentPaste(currentJson) {
   // appends current tempurature
   $("#temp").html(roundTemp + " °F");
 
-  //variable to caputre current humidity
+  //variable to capture current humidity
   var hum = currentJson.main.humidity;
 
   //appends current humidity
   $("#hum").html(hum + "%");
 
-  //variable to catupre current wind speed
+  //variable to capture current wind speed
   var wind = currentJson.wind.speed;
   //rounds wind to nearest tenth
   var roundWind = wind.toFixed(1);
@@ -200,7 +196,7 @@ function currentPaste(currentJson) {
 function forecast(futureJson) {
   //variables to capture current UV index
   var uv = futureJson.current.uvi;
-  //appends currnet uv index
+  //appends current uv index
   $("#uv").html(uv);
 
   if (uv < 2) {
@@ -296,14 +292,14 @@ function forecast(futureJson) {
   var roundTemp4 = temp4.toFixed(1);
   var roundTemp5 = temp5.toFixed(1);
 
-  // appends future tempuratures
+  // appends future temperatures
   $(".temp1").html(roundTemp1 + " °F");
   $(".temp2").html(roundTemp2 + " °F");
   $(".temp3").html(roundTemp3 + " °F");
   $(".temp4").html(roundTemp4 + " °F");
   $(".temp5").html(roundTemp5 + " °F");
 
-  //variable to caputre current humidity
+  //variable to capture current humidity
   var hum1 = futureJson.daily[1].humidity;
   var hum2 = futureJson.daily[2].humidity;
   var hum3 = futureJson.daily[3].humidity;

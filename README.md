@@ -8,7 +8,7 @@ As a frequent Travel, I want to be able to see the weather forecast for multiple
 
 ## The Application
 
-Using the Open Weather API and the Luxon library, I've created an application that allows a user to input a city of their choice, and receive back the current and future weather predictions. The application works as follows:
+Using the Open Weather API and the Luxon library, I've created an application that allows a user to input a city of their choice and receive back the current and future weather predictions. The application works as follows:
 
 * When a user searches for a city, they are presented with current and future weather conditions for that city, and the city is added to a search history,
 
